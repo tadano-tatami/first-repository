@@ -44,7 +44,7 @@ public final class Main extends JavaPlugin implements Listener {
     Player player = e.getPlayer();
     World world = player.getWorld();
 
-    List<Color> colorList = List.of(Color.RED, Color.GREEN, Color.WHITE, Color.AQUA);
+    List<Color> colorList = List.of(Color.RED, Color.GREEN, Color.WHITE);
 
     // val が素数であるかの判定 isProbablePrimeメソッドを使用
     if (count % 2 == 0) {
