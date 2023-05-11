@@ -2,3 +2,7 @@ name: Sample
 version: '${version}'
 main: plugin.sample.Main
 api-version: 1.19
+commands:
+  setLevel:
+  awake:
+  AllSetLevel:
