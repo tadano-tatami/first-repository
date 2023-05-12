@@ -1,25 +1,24 @@
 package plugin.sample;
 
 import java.io.IOException;
-import java.math.BigInteger;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.FireworkEffect.Type;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.entity.Chicken;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerBedEnterEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -30,7 +29,67 @@ public final class Main extends JavaPlugin implements Listener {
 
   @Override
   public void onEnable() {
+    saveDefaultConfig();
+
     Bukkit.getPluginManager().registerEvents(this, this);
+    getCommand("setLevel").setExecutor(new SetLevelCommand(this));
+    getCommand("awake").setExecutor(new Awake());
+    getCommand("AllSetLevel").setExecutor(new AllSetLevelCommand());
+  }
+
+  @EventHandler
+  public void PlayerMoveEvent(PlayerMoveEvent e) {
+    Player player = e.getPlayer();
+    World world = player.getWorld();
+    Location playerLocation = player.getLocation();
+
+//    Chicken chicken = world.spawn(new Location(world, playerLocation.getX() + 3,playerLocation.getY() + 3,playerLocation.getZ() + 3), Chicken.class);
+//    if(world.getBlockAt(new Location(world, playerLocation.getX(), playerLocation.getY() - 1, playerLocation.getZ())).isEmpty()){
+//
+//    }else{
+//    world.getBlockAt(new Location(world, playerLocation.getX(), playerLocation.getY() - 1, playerLocation.getZ())).setType(Material.EMERALD_BLOCK);
+//    }
+//    if(world.getBlockAt(new Location(world, playerLocation.getX() + 1, playerLocation.getY() - 1, playerLocation.getZ())).isEmpty()){
+//
+//    }else{
+//    world.getBlockAt(new Location(world, playerLocation.getX() + 1, playerLocation.getY() - 1, playerLocation.getZ())).setType(Material.COAL_BLOCK);
+//    }
+//    if(world.getBlockAt(new Location(world, playerLocation.getX() - 1, playerLocation.getY() - 1, playerLocation.getZ())).isEmpty()){
+//
+//    }else{
+//    world.getBlockAt(new Location(world, playerLocation.getX() - 1, playerLocation.getY() - 1, playerLocation.getZ())).setType(Material.IRON_BLOCK);
+//    }
+//    if(world.getBlockAt(new Location(world, playerLocation.getX(), playerLocation.getY() - 1, playerLocation.getZ() + 1)).isEmpty()) {
+//
+//    }else{
+//    world.getBlockAt(new Location(world, playerLocation.getX(), playerLocation.getY() - 1, playerLocation.getZ() + 1)).setType(Material.DIAMOND_BLOCK);
+//    }
+//    if (world.getBlockAt(new Location(world, playerLocation.getX(), playerLocation.getY() - 1, playerLocation.getZ() - 1)).isEmpty()){
+//
+//    }else{
+//    world.getBlockAt(new Location(world, playerLocation.getX(), playerLocation.getY() - 1, playerLocation.getZ() - 1)).setType(Material.GOLD_BLOCK);
+//    }
+//    if(world.getBlockAt(new Location(world, playerLocation.getX() + 1, playerLocation.getY() - 1, playerLocation.getZ() + 1)).isEmpty()){
+//
+//    }else{
+//    world.getBlockAt(new Location(world, playerLocation.getX() + 1, playerLocation.getY() - 1, playerLocation.getZ() + 1)).setType(Material.LAPIS_BLOCK);
+//    }
+//    if(world.getBlockAt(new Location(world, playerLocation.getX() + 1, playerLocation.getY() - 1, playerLocation.getZ() - 1)).isEmpty()){
+//
+//    }else{
+//    world.getBlockAt(new Location(world, playerLocation.getX() + 1, playerLocation.getY() - 1, playerLocation.getZ() - 1)).setType(Material.COPPER_BLOCK);
+//    }
+//    if(world.getBlockAt(new Location(world, playerLocation.getX() - 1, playerLocation.getY() - 1, playerLocation.getZ() + 1)).isEmpty()){
+//
+//    }else{
+//    world.getBlockAt(new Location(world, playerLocation.getX() - 1, playerLocation.getY() - 1, playerLocation.getZ() + 1)).setType(Material.NETHERITE_BLOCK);
+//    }
+//
+//    if(world.getBlockAt(new Location(world, playerLocation.getX() - 1, playerLocation.getY() - 1, playerLocation.getZ() - 1)).isEmpty()){
+//
+//    }else{
+//    world.getBlockAt(new Location(world, playerLocation.getX() - 1, playerLocation.getY() - 1, playerLocation.getZ() - 1)).setType(Material.QUARTZ_BLOCK);
+//    }
   }
 
   /**
@@ -69,11 +128,19 @@ public final class Main extends JavaPlugin implements Listener {
         // 追加した情報で再設定する。
         firework.setFireworkMeta(fireworkMeta);
       }
-      Path path = Path.of("firework.text");
-      Files.writeString(path, "たーまやー");
-      player.sendMessage(Files.readString(path));
+//      Path path = Path.of("firework.text");
+//      Files.writeString(path, "たーまやー");
+//      player.sendMessage(Files.readString(path));
     }
     count++;
+  }
+
+  @EventHandler
+  public void PlayerJoinEvent(PlayerJoinEvent e) throws IOException {
+    Player player = e.getPlayer();
+    World world = player.getWorld();
+    player.sendMessage("ようこそMinecraftの世界へ！");
+
   }
 
 /*
